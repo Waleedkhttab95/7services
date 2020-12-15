@@ -1,0 +1,1771 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "version": "1.0.0",
+    "title": "7-Services CRUD",
+    "description": "7-Services Application API",
+    "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+    }
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+    {
+    "name": "Service",
+    "description": "API for Service in the system"
+    },
+    {
+        "name": "Department",
+        "description": "API for Departments in the system"
+        }
+        ,
+    {
+        "name": "Category",
+        "description": "API for Category in the system"
+        }
+        ,
+    {
+        "name": "sub-category",
+        "description": "API for sub-category in the system"
+        }
+        ,
+    {
+        "name": "part",
+        "description": "API for parts in the system"
+        }
+        ,
+    {
+        "name": "package",
+        "description": "API for packages in the system"
+        },
+        {
+            "name": "offer",
+            "description": "API for offers in the system"
+            },
+            {
+                "name": "promo code",
+                "description": "API for promo codes in the system"
+                },
+                {
+                    "name": "zone",
+                    "description": "API for promo zone in the system"
+                    }
+    ],
+    "schemes": [
+    "http"
+    ],
+    "consumes": [
+    "application/json"
+    ],
+    "produces": [
+    "application/json"
+    ],
+    "paths": {
+        "/api/getAllServcices": {
+        "get": {
+        "tags": [
+        "Service"
+        ],
+        "summary": "Get all services in system",
+        "responses": {
+        "200": {
+        "description": "OK",
+        "schema": {
+        "$ref": "#/definitions/Services"
+        }
+        }
+        }
+        }
+        },
+        "/api/postNewService":{
+            "post": {
+                "tags": [
+                "Service"
+                ],
+                "description": "Create new service in system",
+                "parameters": [
+                {
+                "name": "nameAr",
+                "in": "body",
+                "description": "Service name in Arabic",
+                "schema": {
+                "$ref": "#/definitions/Services"
+                }
+                },
+                {
+                    "name": "nameEn",
+                    "in": "body",
+                    "description": "Service name in english",
+                    "schema": {
+                    "$ref": "#/definitions/Services"
+                    }
+                    },
+                    {
+                        "name": "image",
+                        "in": "body",
+                        "description": "image of service",
+                        "schema": {
+                        "$ref": "#/definitions/Services"
+                        }
+                        }
+                ],
+                "produces": [
+                "application/json"
+                ],
+                "responses": {
+                "200": {
+                "description": "New service is created",
+                "schema": {
+                "$ref": "#/definitions/Services"
+                }
+                }
+                }
+                }
+                },
+        "/api/updateService":{
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of service that we want to find",
+                "type": "integer"
+                }
+                ],
+                "put": {
+                    "summary": "Update service with give ID",
+                    "tags": [
+                    "Service"
+                    ],
+                    "parameters": [
+                    {
+                    "name": "service object",
+                    "in": "body",
+                    "description": "object of service with all data",
+                    "schema": {
+                    "$ref": "#/definitions/Services"
+                    }
+                    }
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "service is updated",
+                    "schema": {
+                    "$ref": "#/definitions/Services"
+                    }
+                    }
+                    }
+        }
+
+    },
+    "/api/deleteService":{
+    "delete": {
+        "parameters": [
+            {
+            "name": "id",
+            "in": "path",
+            "requierd": true,
+            "description": "ID of service that we want to delete",
+            "type": "integer"
+            }
+            ],
+        "summary": "Delete service with given ID",
+        "tags": [
+        "Service"
+        ],
+        "responses": {
+        "200": {
+        "description": "service is deleted",
+        "schema": {
+        "$ref": "#/definitions/Services"
+        }
+        }
+        }
+        }
+        },
+
+        "/api/getAllDepartments": {
+            "get": {
+            "tags": [
+            "Department"
+            ],
+            "summary": "Get all departments in system",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/Department"
+            }
+            }
+            }
+            }
+            },
+
+        "/api/getDepartmentById": {
+            "get": {
+            "tags": [
+            "Department"
+            ],
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of department that we want to find",
+                "type": "integer"
+                }
+                ],
+            "summary": "Get one department in system By Id",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/Department"
+            }
+            }
+            }
+            }
+            },
+            "/api/postNewDepartment":{
+                "post": {
+                    "tags": [
+                    "Department"
+                    ],
+                    "description": "Create new department in system",
+                    "parameters": [
+                    {
+                    "name": "nameAr",
+                    "in": "body",
+                    "description": "department name in Arabic",
+                    "schema": {
+                    "$ref": "#/definitions/Department"
+                    }
+                    },
+                    {
+                        "name": "nameEn",
+                        "in": "body",
+                        "description": "department name in english",
+                        "schema": {
+                        "$ref": "#/definitions/Department"
+                        }
+                        },
+                        {
+                            "name": "image",
+                            "in": "body",
+                            "description": "image of Department",
+                            "schema": {
+                            "$ref": "#/definitions/Department"
+                            }
+                            },
+                            {
+                                "name": "type",
+                                "in": "body",
+                                "description": "type of Department Personal or Commercial or All",
+                                "schema": {
+                                "$ref": "#/definitions/Department"
+                                }
+                                },
+                                {
+                                    "name": "service",
+                                    "in": "body",
+                                    "description": "id of service",
+                                    "schema": {
+                                    "$ref": "#/definitions/Department"
+                                    }
+                                    }
+                    ],
+                    "produces": [
+                    "application/json"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "New service is created",
+                    "schema": {
+                    "$ref": "#/definitions/department"
+                    }
+                    }
+                    }
+                    }
+                    },
+            "/api/updateDepartment":{
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "requierd": true,
+                    "description": "ID of department that we want to find",
+                    "type": "integer"
+                    }
+                    ],
+                    "put": {
+                        "summary": "Update department with give ID",
+                        "tags": [
+                        "Department"
+                        ],
+                        "parameters": [
+                        {
+                        "name": "department object",
+                        "in": "body",
+                        "description": "object of department with all data",
+                        "schema": {
+                        "$ref": "#/definitions/Department"
+                        }
+                        }
+                        ],
+                        "responses": {
+                        "200": {
+                        "description": "service is updated",
+                        "schema": {
+                        "$ref": "#/definitions/Department"
+                        }
+                        }
+                        }
+            }
+
+        },
+        "/api/deleteDepartment":{
+        "delete": {
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of Department that we want to delete",
+                "type": "integer"
+                }
+                ],
+            "summary": "Delete Department with given ID",
+            "tags": [
+            "Department"
+            ],
+            "responses": {
+            "200": {
+            "description": "Department is deleted",
+            "schema": {
+            "$ref": "#/definitions/Department"
+            }
+            }
+            }
+            }
+            },
+
+        "/api/getAllCategories": {
+            "get": {
+            "tags": [
+            "Category"
+            ],
+            "summary": "Get all categories in system",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/category"
+            }
+            }
+            }
+            }
+            },
+
+        "/api/getCategoryById": {
+            "get": {
+            "tags": [
+            "Category"
+            ],
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of department that we want to find",
+                "type": "integer"
+                }
+                ],
+            "summary": "Get one category in system By department-Id",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/category"
+            }
+            }
+            }
+            }
+            },
+            "/api/postNewCategory":{
+                "post": {
+                    "tags": [
+                    "Category"
+                    ],
+                    "description": "Create new category in system",
+                    "parameters": [
+                    {
+                    "name": "nameAr",
+                    "in": "body",
+                    "description": "category name in Arabic",
+                    "schema": {
+                    "$ref": "#/definitions/category"
+                    }
+                    },
+                    {
+                        "name": "nameEn",
+                        "in": "body",
+                        "description": "category name in english",
+                        "schema": {
+                        "$ref": "#/definitions/category"
+                        }
+                        },
+                        {
+                            "name": "image",
+                            "in": "body",
+                            "description": "image of category",
+                            "schema": {
+                            "$ref": "#/definitions/category"
+                            }
+                            },
+                            {
+                                "name": "price",
+                                "in": "body",
+                                "description": "price of category",
+                                "schema": {
+                                "$ref": "#/definitions/category"
+                                }
+                                },
+                                {
+                                    "name": "department",
+                                    "in": "body",
+                                    "description": "id of department",
+                                    "schema": {
+                                    "$ref": "#/definitions/category"
+                                    }
+                                    }
+                    ],
+                    "produces": [
+                    "application/json"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "New category is created",
+                    "schema": {
+                    "$ref": "#/definitions/category"
+                    }
+                    }
+                    }
+                    }
+                    },
+            "/api/updateCategory":{
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "requierd": true,
+                    "description": "ID of category that we want to find",
+                    "type": "integer"
+                    }
+                    ],
+                    "put": {
+                        "summary": "Update category with give ID",
+                        "tags": [
+                        "Category"
+                        ],
+                        "parameters": [
+                        {
+                        "name": "category object",
+                        "in": "body",
+                        "description": "object of category with all data",
+                        "schema": {
+                        "$ref": "#/definitions/category"
+                        }
+                        }
+                        ],
+                        "responses": {
+                        "200": {
+                        "description": "category is updated",
+                        "schema": {
+                        "$ref": "#/definitions/category"
+                        }
+                        }
+                        }
+            }
+
+        },
+        "/api/deleteCategory":{
+        "delete": {
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of category that we want to delete",
+                "type": "integer"
+                }
+                ],
+            "summary": "Delete category with given ID",
+            "tags": [
+            "Category"
+            ],
+            "responses": {
+            "200": {
+            "description": "category is deleted",
+            "schema": {
+            "$ref": "#/definitions/category"
+            }
+            }
+            }
+            }
+            },
+
+
+        "/api/getAllSubCategories": {
+            "get": {
+            "tags": [
+            "sub-category"
+            ],
+            "summary": "Get all sub-category in system",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/subCategory"
+            }
+            }
+            }
+            }
+            },
+
+        "/api/getAllSubCategoriesById": {
+            "get": {
+            "tags": [
+            "sub-category"
+            ],
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of category that we want to find",
+                "type": "integer"
+                }
+                ],
+            "summary": "Get one sub-category in system By Id",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/subCategory"
+            }
+            }
+            }
+            }
+            },
+            "/api/postNewSubCategory":{
+                "post": {
+                    "tags": [
+                    "sub-category"
+                    ],
+                    "description": "Create new sub category in system",
+                    "parameters": [
+                    {
+                    "name": "nameAr",
+                    "in": "body",
+                    "description": "sub-category name in Arabic",
+                    "schema": {
+                    "$ref": "#/definitions/subCategory"
+                    }
+                    },
+                    {
+                        "name": "nameEn",
+                        "in": "body",
+                        "description": "sub-category name in english",
+                        "schema": {
+                        "$ref": "#/definitions/subCategory"
+                        }
+                        },
+                            {
+                                "name": "duration",
+                                "in": "body",
+                                "description": "the duration of subCategory",
+                                "schema": {
+                                "$ref": "#/definitions/subCategory"
+                                }
+                                },
+                                {
+                                    "name": "category",
+                                    "in": "body",
+                                    "description": "id of category",
+                                    "schema": {
+                                    "$ref": "#/definitions/subCategory"
+                                    }
+                                    }
+                    ],
+                    "produces": [
+                    "application/json"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "New service is created",
+                    "schema": {
+                    "$ref": "#/definitions/Services"
+                    }
+                    }
+                    }
+                    }
+                    },
+            "/api/updateSubCategory":{
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "requierd": true,
+                    "description": "ID of subCategory that we want to find",
+                    "type": "integer"
+                    }
+                    ],
+                    "put": {
+                        "summary": "Update subCategory with give ID",
+                        "tags": [
+                        "sub-category"
+                        ],
+                        "parameters": [
+                        {
+                        "name": "subCategory object",
+                        "in": "body",
+                        "description": "object of subCategory with all data",
+                        "schema": {
+                        "$ref": "#/definitions/subCategory"
+                        }
+                        }
+                        ],
+                        "responses": {
+                        "200": {
+                        "description": "service is updated",
+                        "schema": {
+                        "$ref": "#/definitions/subCategory"
+                        }
+                        }
+                        }
+            }
+
+        },
+        "/api/deleteSubCategory":{
+        "delete": {
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of sub-category that we want to delete",
+                "type": "integer"
+                }
+                ],
+            "summary": "Delete sub-category with given ID",
+            "tags": [
+            "sub-category"
+            ],
+            "responses": {
+            "200": {
+            "description": "sub-category is deleted",
+            "schema": {
+            "$ref": "#/definitions/subCategory"
+            }
+            }
+            }
+            }
+            },
+
+
+        "/api/getAllParts": {
+            "get": {
+            "tags": [
+            "part"
+            ],
+            "summary": "Get all part in system",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/part"
+            }
+            }
+            }
+            }
+            },
+
+        "/api/getAllPartsById": {
+            "get": {
+            "tags": [
+            "part"
+            ],
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of part that we want to find",
+                "type": "integer"
+                }
+                ],
+            "summary": "Get one part in system By Id",
+            "responses": {
+            "200": {
+            "description": "OK",
+            "schema": {
+            "$ref": "#/definitions/part"
+            }
+            }
+            }
+            }
+            },
+            "/api/postNewPart":{
+                "post": {
+                    "tags": [
+                    "part"
+                    ],
+                    "description": "Create new part in system",
+                    "parameters": [
+                    {
+                    "name": "nameAr",
+                    "in": "body",
+                    "description": "part name in Arabic",
+                    "schema": {
+                    "$ref": "#/definitions/part"
+                    }
+                    },
+                    {
+                        "name": "nameEn",
+                        "in": "body",
+                        "description": "part name in english",
+                        "schema": {
+                        "$ref": "#/definitions/part"
+                        }
+                        }, {
+                            "name": "descriptionAr",
+                            "in": "body",
+                            "description": "part descriptionAr in english",
+                            "schema": {
+                            "$ref": "#/definitions/part"
+                            }
+                            },
+                            {
+                                "name": "descriptionEn",
+                                "in": "body",
+                                "description": "part descriptionEn in english",
+                                "schema": {
+                                "$ref": "#/definitions/part"
+                                }
+                                },
+                        {
+                            "name": "image",
+                            "in": "body",
+                            "description": "image of part",
+                            "schema": {
+                            "$ref": "#/definitions/part"
+                            }
+                            },
+                            {
+                                "name": "madeIn",
+                                "in": "body",
+                                "description": "madeIn of part ",
+                                "schema": {
+                                "$ref": "#/definitions/part"
+                                }
+                                },
+
+                            {
+                                "name": "SpecificationAr",
+                                "in": "body",
+                                "description": "part SpecificationAr in arabic",
+                                "schema": {
+                                "$ref": "#/definitions/part"
+                                }
+                                },
+
+                            {
+                                "name": "SpecificationEn",
+                                "in": "body",
+                                "description": "part SpecificationEn in english",
+                                "schema": {
+                                "$ref": "#/definitions/part"
+                                }
+                                },
+                                {
+                                    "name": "price",
+                                    "in": "body",
+                                    "description": "part price ",
+                                    "schema": {
+                                    "$ref": "#/definitions/part"
+                                    }
+                                    },
+                                    {
+                                        "name": "size",
+                                        "in": "body",
+                                        "description": "part size ",
+                                        "schema": {
+                                        "$ref": "#/definitions/part"
+                                        }
+                                        },
+                                {
+                                    "name": "category",
+                                    "in": "body",
+                                    "description": "id of category",
+                                    "schema": {
+                                    "$ref": "#/definitions/part"
+                                    }
+                                    }
+                    ],
+                    "produces": [
+                    "application/json"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "New part is created",
+                    "schema": {
+                    "$ref": "#/definitions/part"
+                    }
+                    }
+                    }
+                    }
+                    },
+            "/api/updatePart":{
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "requierd": true,
+                    "description": "ID of part that we want to find",
+                    "type": "integer"
+                    }
+                    ],
+                    "put": {
+                        "summary": "Update part with give ID",
+                        "tags": [
+                        "part"
+                        ],
+                        "parameters": [
+                        {
+                        "name": "part object",
+                        "in": "body",
+                        "description": "object of part with all data",
+                        "schema": {
+                        "$ref": "#/definitions/part"
+                        }
+                        }
+                        ],
+                        "responses": {
+                        "200": {
+                        "description": "part is updated",
+                        "schema": {
+                        "$ref": "#/definitions/part"
+                        }
+                        }
+                        }
+            }
+
+        },
+        "/api/deletePart":{
+        "delete": {
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "requierd": true,
+                "description": "ID of part that we want to delete",
+                "type": "integer"
+                }
+                ],
+            "summary": "Delete part with given ID",
+            "tags": [
+            "part"
+            ],
+            "responses": {
+            "200": {
+            "description": "part is deleted",
+            "schema": {
+            "$ref": "#/definitions/part"
+            }
+            }
+            }
+            }
+            },
+
+
+            "/api/getAllPackages": {
+                "get": {
+                "tags": [
+                "package"
+                ],
+                "summary": "Get all packages in system",
+                "responses": {
+                "200": {
+                "description": "OK",
+                "schema": {
+                "$ref": "#/definitions/package"
+                }
+                }
+                }
+                }
+                },
+
+                "/api/postNewPackage":{
+                    "post": {
+                        "tags": [
+                        "package"
+                        ],
+                        "description": "Create new package in system",
+                        "parameters": [
+                        {
+                        "name": "nameAr",
+                        "in": "body",
+                        "description": "package name in Arabic",
+                        "schema": {
+                        "$ref": "#/definitions/package"
+                        }
+                        },
+                        {
+                            "name": "nameEn",
+                            "in": "body",
+                            "description": "package name in english",
+                            "schema": {
+                            "$ref": "#/definitions/package"
+                            }
+                            },
+                            {
+                                "name": "image",
+                                "in": "body",
+                                "description": "image of package",
+                                "schema": {
+                                "$ref": "#/definitions/package"
+                                }
+                                },
+                                {
+                                    "name": "descriptionAr",
+                                    "in": "body",
+                                    "description": "description in arabic",
+                                    "schema": {
+                                    "$ref": "#/definitions/package"
+                                    }
+                                    },
+                                    {
+                                        "name": "descriptionEn",
+                                        "in": "body",
+                                        "description": "description in english",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        },
+                                        {
+                                            "name": "type",
+                                            "in": "body",
+                                            "description": "type of package",
+                                            "schema": {
+                                            "$ref": "#/definitions/package"
+                                            }
+                                            }
+                                            ,
+                                    {
+                                        "name": "duration",
+                                        "in": "body",
+                                        "description": "time duration of package",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "basePrice",
+                                        "in": "body",
+                                        "description": "price of package",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "features",
+                                        "in": "body",
+                                        "description": "package of features",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "extraOption",
+                                        "in": "body",
+                                        "description": "extra option for package",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "discount",
+                                        "in": "body",
+                                        "description": "total of discount",
+                                        "schema": {
+                                        "$ref": "#/definitions/package"
+                                        }
+                                        }
+                        ],
+                        "produces": [
+                        "application/json"
+                        ],
+                        "responses": {
+                        "200": {
+                        "description": "New package is created",
+                        "schema": {
+                        "$ref": "#/definitions/package"
+                        }
+                        }
+                        }
+                        }
+                        },
+                "/api/updatePackage":{
+                    "parameters": [
+                        {
+                        "name": "id",
+                        "in": "path",
+                        "requierd": true,
+                        "description": "ID of package that we want to find",
+                        "type": "integer"
+                        }
+                        ],
+                        "put": {
+                            "summary": "Update package with give ID",
+                            "tags": [
+                            "package"
+                            ],
+                            "parameters": [
+                            {
+                            "name": "package object",
+                            "in": "body",
+                            "description": "object of package with all data",
+                            "schema": {
+                            "$ref": "#/definitions/package"
+                            }
+                            }
+                            ],
+                            "responses": {
+                            "200": {
+                            "description": "service is updated",
+                            "schema": {
+                            "$ref": "#/definitions/package"
+                            }
+                            }
+                            }
+                }
+
+            },
+            "/api/deletePackage":{
+            "delete": {
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "requierd": true,
+                    "description": "ID of package that we want to delete",
+                    "type": "integer"
+                    }
+                    ],
+                "summary": "Delete package with given ID",
+                "tags": [
+                "package"
+                ],
+                "responses": {
+                "200": {
+                "description": "package is deleted",
+                "schema": {
+                "$ref": "#/definitions/package"
+                }
+                }
+                }
+                }
+                },
+
+                "/api/getAllPromoCodes": {
+                    "get": {
+                    "tags": [
+                    "promo code"
+                    ],
+                    "summary": "Get all promo codes in system",
+                    "responses": {
+                    "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/definitions/promoCode"
+                    }
+                    }
+                    }
+                    }
+                    },
+
+                    "/api/postNewPromoCode":{
+                        "post": {
+                            "tags": [
+                            "promo code"
+                            ],
+                            "description": "Create new promo code in system",
+                            "parameters": [
+                            {
+                            "name": "nameAr",
+                            "in": "body",
+                            "description": "promo code name in Arabic",
+                            "schema": {
+                            "$ref": "#/definitions/promoCode"
+                            }
+                            },
+                            {
+                                "name": "nameEn",
+                                "in": "body",
+                                "description": "promo code name in english",
+                                "schema": {
+                                "$ref": "#/definitions/promoCode"
+                                }
+                                },
+                                {
+                                    "name": "startDate",
+                                    "in": "body",
+                                    "description": "start date of promoCode",
+                                    "schema": {
+                                    "$ref": "#/definitions/promoCode"
+                                    }
+                                    },
+                                    {
+                                        "name": "endDate",
+                                        "in": "body",
+                                        "description": "end of promo code",
+                                        "schema": {
+                                        "$ref": "#/definitions/promoCode"
+                                        }
+                                        },
+                                        {
+                                            "name": "discount",
+                                            "in": "body",
+                                            "description": "total of discount",
+                                            "schema": {
+                                            "$ref": "#/definitions/promoCode"
+                                            }
+                                            }
+                            ],
+                            "produces": [
+                            "application/json"
+                            ],
+                            "responses": {
+                            "200": {
+                            "description": "New promo code is created",
+                            "schema": {
+                            "$ref": "#/definitions/promoCode"
+                            }
+                            }
+                            }
+                            }
+                            },
+                    "/api/updatePromoCode":{
+                        "parameters": [
+                            {
+                            "name": "id",
+                            "in": "path",
+                            "requierd": true,
+                            "description": "ID of promo code that we want to find",
+                            "type": "integer"
+                            }
+                            ],
+                            "put": {
+                                "summary": "Update promo code with give ID",
+                                "tags": [
+                                "promo code"
+                                ],
+                                "parameters": [
+                                {
+                                "name": "promoCode object",
+                                "in": "body",
+                                "description": "object of promoCode with all data",
+                                "schema": {
+                                "$ref": "#/definitions/promoCode"
+                                }
+                                }
+                                ],
+                                "responses": {
+                                "200": {
+                                "description": "service is updated",
+                                "schema": {
+                                "$ref": "#/definitions/promoCode"
+                                }
+                                }
+                                }
+                    }
+
+                },
+                "/api/deletePromoCode":{
+                "delete": {
+                    "parameters": [
+                        {
+                        "name": "id",
+                        "in": "path",
+                        "requierd": true,
+                        "description": "ID of promo code that we want to delete",
+                        "type": "integer"
+                        }
+                        ],
+                    "summary": "Delete promo code with given ID",
+                    "tags": [
+                    "promo code"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "promoCode is deleted",
+                    "schema": {
+                    "$ref": "#/definitions/promoCode"
+                    }
+                    }
+                    }
+                    }
+                    },
+
+
+                "/api/getAllOffers": {
+                    "get": {
+                    "tags": [
+                    "offer"
+                    ],
+                    "summary": "Get all offers in system",
+                    "responses": {
+                    "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/definitions/offer"
+                    }
+                    }
+                    }
+                    }
+                    },
+
+                    "/api/postNewOffer":{
+                        "post": {
+                            "tags": [
+                            "offer"
+                            ],
+                            "description": "Create new offer in system",
+                            "parameters": [
+                            {
+                            "name": "nameAr",
+                            "in": "body",
+                            "description": "offer name in Arabic",
+                            "schema": {
+                            "$ref": "#/definitions/offer"
+                            }
+                            },
+                            {
+                                "name": "nameEn",
+                                "in": "body",
+                                "description": "offer name in english",
+                                "schema": {
+                                "$ref": "#/definitions/offer"
+                                }
+                                },
+                                {
+                                    "name": "image",
+                                    "in": "body",
+                                    "description": "image of offer",
+                                    "schema": {
+                                    "$ref": "#/definitions/offer"
+                                    }
+                                    },
+                                    {
+                                        "name": "descriptionAr",
+                                        "in": "body",
+                                        "description": "type of offer Personal or Commercial or All",
+                                        "schema": {
+                                        "$ref": "#/definitions/offer"
+                                        }
+                                        },
+                                        {
+                                            "name": "descriptionEn",
+                                            "in": "body",
+                                            "description": "id of service",
+                                            "schema": {
+                                            "$ref": "#/definitions/offer"
+                                            }
+                                            },
+                                            {
+                                                "name": "category",
+                                                "in": "body",
+                                                "description": "id of category",
+                                                "schema": {
+                                                "$ref": "#/definitions/offer"
+                                                }
+                                                }
+                                                ,
+                                        {
+                                            "name": "startDate",
+                                            "in": "body",
+                                            "description": "start offer",
+                                            "schema": {
+                                            "$ref": "#/definitions/offer"
+                                            }
+                                            }
+                                            ,
+                                        {
+                                            "name": "endDate",
+                                            "in": "body",
+                                            "description": "end offer",
+                                            "schema": {
+                                            "$ref": "#/definitions/offer"
+                                            }
+                                            }
+                                            ,
+                                        {
+                                            "name": "discount",
+                                            "in": "body",
+                                            "description": "total of discount",
+                                            "schema": {
+                                            "$ref": "#/definitions/offer"
+                                            }
+                                            }
+                            ],
+                            "produces": [
+                            "application/json"
+                            ],
+                            "responses": {
+                            "200": {
+                            "description": "New offer is created",
+                            "schema": {
+                            "$ref": "#/definitions/offer"
+                            }
+                            }
+                            }
+                            }
+                            },
+                    "/api/updateOffer":{
+                        "parameters": [
+                            {
+                            "name": "id",
+                            "in": "path",
+                            "requierd": true,
+                            "description": "ID of offer that we want to find",
+                            "type": "integer"
+                            }
+                            ],
+                            "put": {
+                                "summary": "Update offer with give ID",
+                                "tags": [
+                                "offer"
+                                ],
+                                "parameters": [
+                                {
+                                "name": "offer object",
+                                "in": "body",
+                                "description": "object of offer with all data",
+                                "schema": {
+                                "$ref": "#/definitions/offer"
+                                }
+                                }
+                                ],
+                                "responses": {
+                                "200": {
+                                "description": "service is updated",
+                                "schema": {
+                                "$ref": "#/definitions/offer"
+                                }
+                                }
+                                }
+                    }
+
+                },
+                "/api/deleteOffer":{
+                "delete": {
+                    "parameters": [
+                        {
+                        "name": "id",
+                        "in": "path",
+                        "requierd": true,
+                        "description": "ID of offer that we want to delete",
+                        "type": "integer"
+                        }
+                        ],
+                    "summary": "Delete offer with given ID",
+                    "tags": [
+                    "offer"
+                    ],
+                    "responses": {
+                    "200": {
+                    "description": "offer is deleted",
+                    "schema": {
+                    "$ref": "#/definitions/offer"
+                    }
+                    }
+                    }
+                    }
+                    }
+    },
+         "definitions": {
+        "Services": {
+        "required": [
+        "nameAr",
+        "nameEn",
+        "image"
+        ],
+        "properties": {
+        "nameAr": {
+        "type": "string",
+        "description": "Name in arabic"
+        },
+        "nameEn": {
+            "type": "string",
+            "description": "Name in english"
+            },
+            "image": {
+                "type": "file",
+                "description": "image of service"
+                }
+        }
+        },
+        "Department": {
+            "required": [
+            "nameAr",
+            "nameEn",
+            "image",
+            "type",
+            "service"
+            ],
+            "properties": {
+            "nameAr": {
+            "type": "string",
+            "description": "Name in arabic"
+            },
+            "nameEn": {
+                "type": "string",
+                "description": "Name in english"
+                },
+                "image": {
+                    "type": "file",
+                    "description": "image of service"
+                    },
+                    "type":{
+                "type": "string",
+                "description": "type of department Personal or Commercial or All"
+                    },
+                    "service":{
+                        "type": "Id",
+                        "description": "id of service we want linking with"}
+
+            }
+            },
+            "category": {
+                "required": [
+                "nameAr",
+                "nameEn",
+                "image",
+                "price",
+                "department"
+                ],
+                "properties": {
+                "nameAr": {
+                "type": "string",
+                "description": "Name in arabic"
+                },
+                "nameEn": {
+                    "type": "string",
+                    "description": "Name in english"
+                    },
+                    "image": {
+                        "type": "file",
+                        "description": "image of category"
+                        },
+                        "price":{
+                    "type": "Number",
+                    "description": "the price of this category"
+                        },
+                        "department":{
+                            "type": "Id",
+                            "description": "id of department we want linking with"}
+
+                }
+                },
+                "subCategory": {
+                    "required": [
+                    "nameAr",
+                    "nameEn",
+                    "image",
+                    "price",
+                    "department"
+                    ],
+                    "properties": {
+                    "nameAr": {
+                    "type": "string",
+                    "description": "Name in arabic"
+                    },
+                    "nameEn": {
+                     "type": "string",
+                     "description": "Name in english"
+                        },
+                     "image": {
+                        "type": "file",
+                         "description": "image of sub-category"
+                            },
+                     "duration":{
+                        "type": "Number",
+                        "description": "the time duration of this sub-category"
+                            },
+                     "category":{
+                       "type": "Id",
+                       "description": "id of category we want linking with"}
+
+                    }
+                    },
+
+                "offer": {
+                    "required": [
+                    "nameAr",
+                    "nameEn",
+                    "descriptionAr",
+                    "descriptionEn",
+                    "madeIn",
+                    "SpecificationAr",
+                    "SpecificationEn",
+                    "size",
+                    "image",
+                    "category",
+                    "price"
+                    ],
+                    "properties": {
+                    "nameAr": {
+                    "type": "string",
+                    "description": "Name in arabic"
+                    },
+                    "nameEn": {
+                     "type": "string",
+                     "description": "Name in english"
+                        },
+                     "image": {
+                        "type": "file",
+                         "description": "image of sub-category"
+                            },
+                     "descriptionAr":{
+                        "type": "String",
+                        "description": "description of this part in arabic"
+                            },
+                     "descriptionEn":{
+                        "type": "String",
+                        "description": "description of this part in english"
+
+                    },
+                    "madeIn": {
+                        "type": "string",
+                        "description": "country of this part"
+                        },
+                        "SpecificationAr": {
+                         "type": "string",
+                         "description": "specification of part in arabic"
+                            },
+                         "SpecificationEn": {
+                            "type": "file",
+                             "description": "specification of part in english"
+                                },
+                         "size":{
+                            "type": "String",
+                            "description": "size of part"
+                                },
+                         "category":{
+                           "type": "Id",
+                           "description": "id of category we want linking with"}
+
+                        },
+                        "price":{
+                          "type": "Number",
+                          "description": "price of part"}
+
+                       },
+                       "part": {
+                        "required": [
+                        "nameAr",
+                        "nameEn",
+                        "descriptionAr",
+                        "descriptionEn",
+                        "startDate",
+                        "endDate",
+                        "discount",
+                        "image",
+                        "category"
+                        ],
+                        "properties": {
+                        "nameAr": {
+                        "type": "string",
+                        "description": "Name in arabic"
+                        },
+                        "nameEn": {
+                         "type": "string",
+                         "description": "Name in english"
+                            },
+                         "image": {
+                            "type": "file",
+                             "description": "image of offer"
+                                },
+                         "descriptionAr":{
+                            "type": "String",
+                            "description": "description of this offer in arabic"
+                                },
+                         "descriptionEn":{
+                            "type": "String",
+                            "description": "description of this offer in english"
+
+                        },
+                        "startDate": {
+                            "type": "Date",
+                            "description": "date of starting this offer"
+                            },
+                            "endDate": {
+                             "type": "Date",
+                             "description": "date of ending this offer"
+                                },
+                             "discount": {
+                                "type": "Number",
+                                 "description": "total discount of offer"
+                                    },
+                             "category":{
+                               "type": "Id",
+                               "description": "id of category we want linking with"}
+
+                            }
+                    },
+
+                       "package": {
+                        "required": [
+                        "nameAr",
+                        "nameEn",
+                        "descriptionAr",
+                        "descriptionEn",
+                        "type",
+                        "duration",
+                        "basePrice",
+                        "features",
+                        "extraOption",
+                        "image",
+                        "discount"
+                        ],
+                        "properties": {
+                        "nameAr": {
+                        "type": "string",
+                        "description": "Name in arabic"
+                        },
+                        "nameEn": {
+                         "type": "string",
+                         "description": "Name in english"
+                            },
+                         "image": {
+                            "type": "file",
+                             "description": "image of offer"
+                                },
+                         "descriptionAr":{
+                            "type": "String",
+                            "description": "description of this offer in arabic"
+                                },
+                         "descriptionEn":{
+                            "type": "String",
+                            "description": "description of this offer in english"
+
+                        },
+                        "type": {
+                            "type": "String",
+                            "description": "type of package"
+                            },
+                            "duration": {
+                             "type": "Number",
+                             "description": "duration of package"
+                                },
+                             "basePrice": {
+                                "type": "Number",
+                                 "description": "price"
+                                    },
+                             "features":{
+                               "type": "String",
+                               "description": "description of features of this package"}
+
+                            },
+                            "extraOption":{
+                              "type": "String",
+                              "description": "add extra options for this package"},
+
+                           "discount":{
+                             "type": "Number",
+                             "description": "the discount of this package"}
+
+                           },
+                           "promoCode": {
+                            "required": [
+                            "nameAr",
+                            "nameEn",
+                            "startDate",
+                            "endDate",
+                            "discount"
+                            ],
+                            "properties": {
+                            "nameAr": {
+                            "type": "string",
+                            "description": "Name in arabic"
+                            },
+                            "nameEn": {
+                             "type": "string",
+                             "description": "Name in english"
+                                },
+                             "startDate": {
+                                "type": "Date",
+                                 "description": "start date of promoCode"
+                                    },
+                             "endDate":{
+                                "type": "Date",
+                                "description": "end date of promo code"
+                                    },
+                             "discount":{
+                                "type": "Number",
+                                "description": "total of discount for this promo code"
+
+                            }
+
+                               }
+
+                          },
+                          "zone": {
+                           "required": [
+                           "nameAr",
+                           "nameEn",
+                           "Neighborhood",
+                           "location"
+                           ],
+                           "properties": {
+                           "nameAr": {
+                           "type": "string",
+                           "description": "Name in arabic"
+                           },
+                           "nameEn": {
+                            "type": "string",
+                            "description": "Name in english"
+                               },
+                            "Neighborhood": {
+                               "type": "String",
+                                "description": "about location of zone"
+                                   },
+                            "location":{
+                               "type": "Object with 2 values ,latitude,longitude ",
+                               "description": "location of zone"
+                                   }
+
+                              }
+
+                         }
+
+                    }
+
+
+
+
+
+
+
+}
+
+
+
+
+
