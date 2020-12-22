@@ -6,19 +6,23 @@ const bcrypt = require('bcrypt-nodejs');
 
 // user Login //
 exports.userLogin = async (req, res) => {
-  console.log("ttt")
+
     let user;
     let type = 'personal';
      user = await personal.findOne({ phoneNumber: req.body.phoneNumber});
     if(!user) {
+
         user = await commercial.findOne({ phoneNumber: req.body.phoneNumber});
         type= 'commercial'
     }
-    else if (!user) return res.status(400).json({
+    if(!user){
+
+      return res.status(400).json({
         status:false,
         messageAr:"خطأ في رقم الهاتف او كلمة المرور",
         messageEn : 'invalid phone number or password'
     });
+    }
 
     const validPassword = await bcrypt.compare(req.body.password, user.password, (error, result) => {
       if (!result) return res.status(400).json({
