@@ -3,33 +3,6 @@ const Joi = require('joi');
 const { Schema } = mongoose;
 
 
-/**
- * /
-  @swagger
-   components:
-     schemas:
-       Service:
-         type: object
-         required:
-           - nameAr
-           - nameEn
-           - image
-         properties:
-           nameAr:
-             type: String
-             description: name of service in Arabic.
-           nameEn:
-             type: string
-             description: name of service in English.
-           image:
-             type: file
-             description: service image
-         example:
-            nameAr:وليد
-            nameEn: waleed
-
- */
-
 
 
 const ServiceSchema = new Schema({

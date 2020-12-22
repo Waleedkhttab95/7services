@@ -39,7 +39,7 @@ exports.personalSignUp = async (req,res) =>{
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
             if (error) return res.status(400)
                 // create otp
-                 otp = createOtp();
+                 otp =12345// createOtp();
                  // create location obj
                  locationObj = {
                     latitude: req.body.latitude,
@@ -116,7 +116,7 @@ exports.commercialSignUp = async (req,res) =>{
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
             if (error) return res.status(400)
             // create otp
-         otp = createOtp();
+         otp = 12345 //createOtp();
         today = new Date();
         today.setHours(0, 0, 0, 0);
         user.createDate = today;
@@ -236,12 +236,12 @@ exports.resetPassword = async (req,res)=>{
         messageAr:"المستخدم غير موجود",
         messageEn : 'user not exist !'
     });
-    let otp = createOtp()
+    let otp = 1234//createOtp()
     // set new otp
     user.otp = otp;
     user.save();
     // send sms otp
-    sendSms.sendSms(user.phoneNumber,otp)
+   // sendSms.sendSms(user.phoneNumber,otp)
     // finish
     res.status(201).json({
         status: true,

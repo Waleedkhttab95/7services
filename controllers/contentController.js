@@ -282,12 +282,13 @@ exports.getDepartments = async (req, res) => {
 
 exports.getDepartmentById = async (req, res) =>{
             const id = req.query.id;
+            let userType = req.user.type;
             if (!id) return res.status(400).json({
                 status: false,
                 message: "requierd Id"
             });
 
-            const departments = await department.find({'service':id});
+            const departments = await department.find({'service':id, "type":userType ,"type":'All'});
             res.status(201).json({
                 status: true,
                 message: "Success !",

@@ -32,7 +32,7 @@ const departmentSchema = new Schema({
         type: String,
         required: true,
         maxlength: 20,
-        enum: ['Personal' , 'Commercial' , 'All']
+        enum: ['personal' , 'commercial' , 'All']
     },
     service: { type: mongoose.Schema.Types.ObjectId, ref: 'Services', required: true },
     createDate: { type: Date },
