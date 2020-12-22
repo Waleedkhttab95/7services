@@ -46,10 +46,10 @@ const ServiceSchema = new Schema({
         maxlength: 60,
     },
 
-    // image: {
-    //     type: String,
-    //     required: true,
-    // },
+    image: {
+        type: String,
+        required: true,
+    },
 
     status: {
         type: String,

@@ -1,9 +1,12 @@
 const {personal, validatePersonal} = require('../models/user/personal');
-const {commercial ,validateCommercial} = require('../models/user/commercial')
+const {commercial ,validateCommercial} = require('../models/user/commercial');
+const bcrypt = require('bcrypt-nodejs');
+
 
 
 // user Login //
 exports.userLogin = async (req, res) => {
+  console.log("ttt")
     let user;
     let type = 'personal';
      user = await personal.findOne({ phoneNumber: req.body.phoneNumber});
@@ -47,3 +50,34 @@ exports.userLogin = async (req, res) => {
     });
 
   };
+
+
+  // exports.sendNotification = async (req,res) =>{
+
+  //   const notification_options = {
+  //     priority: "high",
+  //     timeToLive: 60 * 60 * 24
+  //   };
+
+  //   const message = {
+  //     notification: {
+  //        title: "Hi",
+  //        body: "Hello world"
+  //            }
+  //     };
+
+  //   const  registrationToken = req.body.registrationToken
+  //   const message = message
+  //   const options =  notification_options
+
+  //     admin.messaging().sendToDevice(registrationToken, message, options)
+  //     .then( response => {
+
+  //      res.status(200).send("Notification sent successfully")
+
+  //     })
+  //     .catch( error => {
+  //         console.log(error);
+  //     });
+  // }
+

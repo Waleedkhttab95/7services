@@ -724,8 +724,8 @@ exports.postOffer = async (req, res) => {
             category: req.body.category,
             image: pathOfImage(req.file),
             // status: req.body.status,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
+            startDate: setZeroDate(req.body.startDate),
+            endDate: setZeroDate(req.body.endDate),
             discount: req.body.discount,
             createDate: Date.now()
         }).save()
@@ -830,8 +830,8 @@ exports.postPromoCode = async (req, res) => {
             nameAr: req.body.nameAr,
             nameEn: req.body.nameEn,
             // status: req.body.status,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
+            startDate: setZeroDate(req.body.startDate),
+            endDate: setZeroDate(req.body.endDate),
             discount: req.body.discount,
             createDate: Date.now()
         }).save()
@@ -1035,4 +1035,10 @@ function pathOfImage(file){
     }
 
     return imagePath;
+}
+
+function setZeroDate(date) {
+    today = new Date(date);
+    today.setHours(0, 0, 0, 0);
+    return today;
 }

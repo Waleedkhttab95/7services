@@ -12,6 +12,10 @@
     "host": "https://services7-test-app.herokuapp.com",
     "basePath": "/",
     "tags": [
+        {
+            "name": "signIn&signUp",
+            "description": "API's for sign in and sign up"
+            },
     {
     "name": "Service",
     "description": "API for Service in the system"
@@ -1397,7 +1401,423 @@
                     }
                     }
                     }
-                    }
+                    },
+
+                    "/api/userLogin":{
+                        "post": {
+                            "tags": [
+                            "signIn&signUp"
+                            ],
+                            "description": "to user login into app",
+                            "parameters": [
+                            {
+                            "name": "phoneNumber",
+                            "in": "body",
+                            "description": "user phone number to login",
+                            "schema": {
+                            "$ref": "#/definitions/userLogin"
+                            }
+                            },
+                            {
+                                "name": "password",
+                                "in": "body",
+                                "description": "password to login",
+                                "schema": {
+                                "$ref": "#/definitions/userLogin"
+                                }
+                                }
+
+                            ],
+                            "produces": [
+                            "application/json"
+                            ],
+                            "responses": {
+                            "200": {
+                            "description": "true"
+
+                            },
+                            "token": {
+                                "description": "user token"
+
+                                },
+                                "userId": {
+                                    "description": "user Id"
+                                    },
+                                    "userType": {
+                                        "description": "user type if presonal or commercial"
+                                        }
+                            }
+
+                            }
+                            },
+
+                    "/api/personalSignUp":{
+                        "post": {
+                            "tags": [
+                            "signIn&signUp"
+                            ],
+                            "description": " user presonal sign up",
+                            "parameters": [
+                            {
+                            "name": "phoneNumber",
+                            "in": "body",
+                            "description": "user phone number ",
+                            "schema": {
+                            "$ref": "#/definitions/userRegistretionPersonal"
+                            }
+                            },
+                            {
+                                "name": "password",
+                                "in": "body",
+                                "description": "password to login",
+                                "schema": {
+                                "$ref": "#/definitions/userRegistretionPersonal"
+                                }
+                                }
+                                ,
+                            {
+                                "name": "firstName",
+                                "in": "body",
+                                "description": "user first name",
+                                "schema": {
+                                "$ref": "#/definitions/userRegistretionPersonal"
+                                }
+                                }
+                                ,
+                            {
+                                "name": "lastName",
+                                "in": "body",
+                                "description": "user last name",
+                                "schema": {
+                                "$ref": "#/definitions/userRegistretionPersonal"
+                                }
+                                }
+                                ,
+                            {
+                                "name": "email",
+                                "in": "body",
+                                "description": "user email",
+                                "schema": {
+                                "$ref": "#/definitions/userRegistretionPersonal"
+                                }
+                                },
+                                {
+                                    "name": "houseType",
+                                    "in": "body",
+                                    "description": "user houseType apartment or villa",
+                                    "schema": {
+                                    "$ref": "#/definitions/userRegistretionPersonal"
+                                    }
+                                    },
+                                    {
+                                        "name": "houseNumber",
+                                        "in": "body",
+                                        "description": "houseNumber min 1 to 6 numbers",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionPersonal"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "AcceptTerms",
+                                        "in": "body",
+                                        "description": "true or false",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionPersonal"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "latitude",
+                                        "in": "body",
+                                        "description": "from user location",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionPersonal"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "longitude",
+                                        "in": "body",
+                                        "description": "from user location",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionPersonal"
+                                        }
+                                        }
+
+                            ],
+                            "produces": [
+                            "application/json"
+                            ],
+                            "responses": {
+                            "200": {
+                            "description": "true"
+
+                            },
+                            "token": {
+                                "description": "user token"
+                                }
+                            }
+                            }
+                            },
+
+                            "/api/commercialSignUp":{
+                                "post": {
+                                    "tags": [
+                                    "signIn&signUp"
+                                    ],
+                                    "description": " user commercial sign up",
+                                    "parameters": [
+                                    {
+                                    "name": "phoneNumber",
+                                    "in": "body",
+                                    "description": "user phone number ",
+                                    "schema": {
+                                    "$ref": "#/definitions/userRegistretionCommercial"
+                                    }
+                                    },
+                                    {
+                                        "name": "password",
+                                        "in": "body",
+                                        "description": "password to login",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionCommercial"
+                                        }
+                                        }
+                                        ,
+                                    {
+                                        "name": "companyName",
+                                        "in": "body",
+                                        "description": "company name",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionCommercial"
+                                        }
+                                        }
+
+                                        ,
+                                    {
+                                        "name": "email",
+                                        "in": "body",
+                                        "description": "user email",
+                                        "schema": {
+                                        "$ref": "#/definitions/userRegistretionCommercial"
+                                        }
+                                        },
+                                        {
+                                            "name": "CR",
+                                            "in": "body",
+                                            "description": "CR number",
+                                            "schema": {
+                                            "$ref": "#/definitions/userRegistretionCommercial"
+                                            }
+                                            },
+                                            {
+                                                "name": "officeNumber",
+                                                "in": "body",
+                                                "description": "officeNumber ",
+                                                "schema": {
+                                                "$ref": "#/definitions/userRegistretionCommercial"
+                                                }
+                                                }
+                                                ,
+                                            {
+                                                "name": "AcceptTerms",
+                                                "in": "body",
+                                                "description": "true or false",
+                                                "schema": {
+                                                "$ref": "#/definitions/userRegistretionCommercial"
+                                                }
+                                                }
+                                                ,
+                                            {
+                                                "name": "latitude",
+                                                "in": "body",
+                                                "description": "from user location",
+                                                "schema": {
+                                                "$ref": "#/definitions/userRegistretionCommercial"
+                                                }
+                                                }
+                                                ,
+                                            {
+                                                "name": "longitude",
+                                                "in": "body",
+                                                "description": "from user location",
+                                                "schema": {
+                                                "$ref": "#/definitions/userRegistretionCommercial"
+                                                }
+                                                }
+
+                                    ],
+                                    "produces": [
+                                    "application/json"
+                                    ],
+                                    "responses": {
+                                    "200": {
+                                    "description": "true"
+                                    },
+                                    "token": {
+                                        "description": "user token"
+                                        }
+                                    }
+                                    }
+                                    }
+                                    ,
+
+                            "/api/verfiyOTP":{
+                                "post": {
+                                    "tags": [
+                                    "signIn&signUp"
+                                    ],
+                                    "description": " to verify the otp code is correct or not",
+                                    "parameters": [
+                                    {
+                                    "name": "otp",
+                                    "in": "body",
+                                    "description": "otp code insert by user ",
+                                    "schema": {
+                                    "$ref": "#/definitions/userRegistretionCommercial"
+                                    }
+                                    },
+                                    {
+                                        "name": "token",
+                                        "in": "headers",
+                                        "description": "token take it from sign up step"
+                                        }
+
+                                    ],
+                                    "produces": [
+                                    "application/json"
+                                    ],
+                                    "responses": {
+                                    "201": {
+                                    "description": "true"
+                                    },
+                                    "402": {
+                                        "description": "invalid message"
+                                        }
+                                    }
+                                    }
+                                    },
+                                    "/api/sendResetPassword":{
+                                        "post": {
+                                            "tags": [
+                                            "signIn&signUp"
+                                            ],
+                                            "description": " to send reset password request",
+                                            "parameters": [
+                                            {
+                                            "name": "phoneNumber",
+                                            "in": "body",
+                                            "description": "phoneNumber insert by user ",
+                                            "schema": {
+                                            "$ref": "#/definitions/userRegistretionCommercial"
+                                            }
+                                            }
+
+                                            ],
+                                            "produces": [
+                                            "application/json"
+                                            ],
+                                            "responses": {
+                                            "201": {
+                                            "description": "true"
+                                            },
+                                            "402": {
+                                                "description": "invalid message"
+                                                }
+                                                ,
+                                            "userType": {
+                                                "description": "user type to send in next step"
+                                                }
+                                            }
+                                            }
+                                            }
+                                            ,
+                                            "/api/setNewPAssword":{
+                                                "post": {
+                                                    "tags": [
+                                                    "signIn&signUp"
+                                                    ],
+                                                    "description": " to set new password",
+                                                    "parameters": [
+                                                    {
+                                                    "name": "newPassword",
+                                                    "in": "body",
+                                                    "description": "newPassword insert by user ",
+                                                    "schema": {
+                                                    "$ref": "#/definitions/userRegistretionCommercial"
+                                                    }
+                                                    },
+                                                    {
+                                                        "name": "confirmNewPaassword",
+                                                        "in": "body",
+                                                        "description": "confirmNewPaassword insert by user ",
+                                                        "schema": {
+                                                        "$ref": "#/definitions/userRegistretionCommercial"
+                                                        }
+                                                        },
+                                                        {
+                                                            "name": "phoneNumber",
+                                                            "in": "body",
+                                                            "description": "phoneNumber insert by user ",
+                                                            "schema": {
+                                                            "$ref": "#/definitions/userRegistretionCommercial"
+                                                            }
+                                                            },
+                                                            {
+                                                                "name": "userType",
+                                                                "in": "body",
+                                                                "description": "user type (take it from send reset step)",
+                                                                "schema": {
+                                                                "$ref": "#/definitions/userRegistretionCommercial"
+                                                                }
+                                                                }
+
+                                                    ],
+                                                    "produces": [
+                                                    "application/json"
+                                                    ],
+                                                    "responses": {
+                                                    "201": {
+                                                    "description": "true"
+                                                    },
+                                                    "402": {
+                                                        "description": "invalid message"
+                                                        }
+
+                                                    }
+                                                    }
+                                                    },
+                                                    "/api/resendOtp":{
+                                                        "post": {
+                                                            "tags": [
+                                                            "signIn&signUp"
+                                                            ],
+                                                            "description": " resend otp to user",
+                                                            "parameters": [
+                                                            {
+                                                            "name": "token",
+                                                            "in": "headers",
+                                                            "description": "token for user (take it from sign up  step) ",
+                                                            "schema": {
+                                                            "$ref": "#/definitions/userRegistretionCommercial"
+                                                            }
+                                                            }
+
+                                                            ],
+                                                            "produces": [
+                                                            "application/json"
+                                                            ],
+                                                            "responses": {
+                                                            "201": {
+                                                            "description": "true"
+                                                            },
+                                                            "402": {
+                                                                "description": "invalid message"
+                                                                }
+                                                            }
+                                                            }
+                                                            }
     },
          "definitions": {
         "Services": {
@@ -1753,7 +2173,140 @@
 
                               }
 
-                         }
+                         },
+                         "userLogin": {
+                          "required": [
+                          "phoneNumber",
+                          "password"
+                          ],
+                          "properties": {
+                          "phoneNumber": {
+                          "type": "Number",
+                          "description": "user Number to login"
+                          },
+                          "password": {
+                           "type": "string",
+                           "description": "password for user login"
+                              }
+                             }
+
+                        },
+                        "userRegistretionPersonal": {
+                         "required": [
+                         "firstName",
+                         "lastName",
+                         "email",
+                         "password",
+                         "phoneNumber",
+                         "houseType",
+                         "houseNumber",
+                         "AcceptTerms",
+                         "latitude",
+                         "longitude"
+                         ],
+                         "properties": {
+                         "firstName": {
+                         "type": "String",
+                         "description": "user first name"
+                         },
+                         "lastName": {
+                          "type": "string",
+                          "description": "user Last name"
+                             },
+                             "email": {
+                              "type": "string",
+                              "description": "user email"
+                                 },
+                                 "password": {
+                                  "type": "string",
+                                  "description": "user password"
+                                     },
+                                     "phoneNumber": {
+                                      "type": "Number",
+                                      "description": "user phoneNumber"
+                                         },
+                                         "houseType": {
+                                          "type": "String",
+                                          "description": "Apartment or villa"
+                                             }
+                                             ,
+                                     "houseNumber": {
+                                      "type": "Number",
+                                      "description": "user home number"
+                                         }
+                                         ,
+                                     "AcceptTerms": {
+                                      "type": "boolean",
+                                      "description": "true or false"
+                                         }
+                                         ,
+                                     "latitude": {
+                                      "type": "String",
+                                      "description": "from user location"
+                                         }
+                                         ,
+                                     "longitude": {
+                                      "type": "String",
+                                      "description": "from user location"
+                                         }
+                            }
+
+                       },
+                       "userRegistretionCommercial": {
+                        "required": [
+                        "companyName",
+                        "CR",
+                        "email",
+                        "password",
+                        "phoneNumber",
+                        "officeNumber",
+                        "AcceptTerms",
+                        "latitude",
+                        "longitude"
+                        ],
+                        "properties": {
+                        "companyName": {
+                        "type": "String",
+                        "description": "company name"
+                        },
+                        "CR": {
+                         "type": "Number",
+                         "description": "CR number for company"
+                            },
+                            "email": {
+                             "type": "string",
+                             "description": "company email"
+                                },
+                                "password": {
+                                 "type": "string",
+                                 "description": "company password"
+                                    },
+                                    "phoneNumber": {
+                                     "type": "Number",
+                                     "description": "company phoneNumber"
+                                        },
+                                    "officeNumber": {
+                                     "type": "Number",
+                                     "description": "company building number"
+                                        }
+                                        ,
+                                    "AcceptTerms": {
+                                     "type": "boolean",
+                                     "description": "true or false"
+                                        }
+                                        ,
+                                    "latitude": {
+                                     "type": "String",
+                                     "description": "from user location"
+                                        }
+                                        ,
+                                    "longitude": {
+                                     "type": "String",
+                                     "description": "from user location"
+                                        }
+                           }
+
+                      }
 
                     }
 

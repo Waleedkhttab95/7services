@@ -84,7 +84,7 @@ function validateData(data) {
         SpecificationAr: Joi.string().max(110).required(),
         SpecificationEn: Joi.string().max(110).required(),
         size: Joi.string().max(70).required(),
-        price: Joi.Number().required(),
+        price: Joi.number().required(),
         category: Joi.ObjectId().required(),
 
     };

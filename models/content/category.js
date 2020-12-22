@@ -44,7 +44,7 @@ function validateData(data) {
     const Schema = {
         nameAr: Joi.string().max(60).required(),
         nameEn: Joi.string().max(60).required(),
-        price: Joi.Number().required(),
+        price: Joi.number().required(),
         department: Joi.ObjectId().required(),
 
     };

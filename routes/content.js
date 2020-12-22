@@ -1,6 +1,4 @@
 const contentController = require('../controllers/contentController');
-
-
 module.exports = (app, client) => {
 
 app.get('/api/getAllServices', contentController.getServices);

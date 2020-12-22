@@ -12,6 +12,8 @@ const redis = require('redis');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 swaggerDocument = require('./swagger.json');
+var admin = require("firebase-admin");
+var serviceAccount = require("./service-test-784d1-firebase-adminsdk-r16kv-9fd60c804b.json");
 require('express-async-errors');
 
 
@@ -60,6 +62,19 @@ app.use(error);
 // Read a routes
 
 require('./routes/content')(app,client);
+require('./routes/registretion')(app);
+require('./routes/auth')(app);
+
+//connect to firebase
+
+
+
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+})
+
+module.exports.admin = admin
 
 
 // swagger

@@ -67,9 +67,9 @@ function validateData(data) {
         nameEn: Joi.string().max(60).required(),
         descriptionAr: Joi.string().required(),
         descriptionEn: Joi.string().required(),
-        startDate: Joi.Date().required(),
-        endDate: Joi.Date().required(),
-        discount: Joi.Number().required()
+        startDate: Joi.date().required(),
+        endDate: Joi.date().required(),
+        discount: Joi.number().required()
 
     };
 

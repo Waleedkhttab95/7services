@@ -7,7 +7,10 @@ const { Schema } = mongoose;
 
 
 const commercialSchema = new Schema({
-
+    type:{
+        type:String,
+        enum:['personal','commercial']
+    },
     companyName: {
         type: String,
         required: true,
@@ -64,7 +67,7 @@ const commercialSchema = new Schema({
 
 // genrate token
 commercialSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id}, keys.jwtKey);
+    const token = jwt.sign({ _id: this._id,type:this.type}, keys.jwtKey);
 
     return token;
 }
@@ -78,10 +81,12 @@ function validateData(data) {
     const Schema = {
         companyName: Joi.string().min(3).max(15).required(),
         email: Joi.string().min(5).max(255).required().email(),
-        phoneNumber: Joi.Number().required(),
-        CR: Joi.Number().required(),
-        officeNumber: Joi.Number().min(1).max(6).required(),
-        AcceptTerms: Joi.Boolean().required(),
+        phoneNumber: Joi.number().required(),
+        CR: Joi.number().required(),
+        officeNumber: Joi.number().max(6).required(),
+        AcceptTerms: Joi.boolean().required(),
+        latitude:Joi.string().required(),
+        longitude:Joi.string().required(),
 
     };
 

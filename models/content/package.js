@@ -83,11 +83,11 @@ function validateData(data) {
         descriptionAr: Joi.string().required(),
         descriptionEn: Joi.string().required(),
         type: Joi.string().required(),
-        duration: Joi.Number().required(),
-        basePrice: Joi.Number().required(),
+        duration: Joi.number().required(),
+        basePrice: Joi.number().required(),
         features: Joi.string().max(150).required(),
         extraOption: Joi.string().max(200).required(),
-        discount: Joi.Number().required(),
+        discount: Joi.number().required(),
 
     };
 

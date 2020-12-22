@@ -2,8 +2,11 @@ const {personal, validatePersonal} = require('../models/user/personal');
 const {commercial ,validateCommercial} = require('../models/user/commercial')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
+const sendSms = require('../controllers/common/sendSms');
+
 // user personal registretion
 exports.personalSignUp = async (req,res) =>{
+    let otp;
     const { error } = validatePersonal(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -26,6 +29,7 @@ exports.personalSignUp = async (req,res) =>{
             houseType: req.body.houseType,
             houseNumber: req.body.houseNumber,
             AcceptTerms: req.body.AcceptTerms,
+            type:'personal'
         });
         const salt = await bcrypt.genSalt(10, (error, hash) => {
             if (error) res.status(400)
@@ -33,15 +37,19 @@ exports.personalSignUp = async (req,res) =>{
           });
 
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
-            if (error) res.status(400)
+            if (error) return res.status(400)
                 // create otp
-                let otp = createOtp();
+                 otp = createOtp();
+                 // create location obj
+                 locationObj = {
+                    latitude: req.body.latitude,
+                    longitude:req.body.longitude
+                 }
                 today = new Date();
                 today.setHours(0, 0, 0, 0);
                 user.createDate = today;
                 user.password = hash;
-                user.location.latitude= req.body.latitude,
-                user.location.longitude= req.body.longitude,
+               user.location = locationObj;
                 user.location.id= new mongoose.Types.ObjectId(),
                 user.otp = otp;
                 user.save();
@@ -50,7 +58,7 @@ exports.personalSignUp = async (req,res) =>{
 
 
         // send OTP Sms
-
+     //   sendSms.sendSms(req.body.phoneNumber, otp);
         // create user token :)
         const token = user.generateAuthToken();
 
@@ -73,6 +81,7 @@ exports.personalSignUp = async (req,res) =>{
 
 // user commercial registretion
 exports.commercialSignUp = async (req,res) =>{
+    let otp;
     const { error } = validateCommercial(req.body);
     if (error) return res.status(400).json({
         status:false,
@@ -97,6 +106,7 @@ exports.commercialSignUp = async (req,res) =>{
             CR: req.body.CR,
             officeNumber: req.body.officeNumber,
             AcceptTerms: req.body.AcceptTerms,
+            type:'commercial'
         });
         const salt = await bcrypt.genSalt(10, (error, hash) => {
             if (error) res.status(400)
@@ -104,9 +114,9 @@ exports.commercialSignUp = async (req,res) =>{
           });
 
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
-            if (error) res.status(400)
+            if (error) return res.status(400)
             // create otp
-        let otp = createOtp();
+         otp = createOtp();
         today = new Date();
         today.setHours(0, 0, 0, 0);
         user.createDate = today;
@@ -122,7 +132,7 @@ exports.commercialSignUp = async (req,res) =>{
 
 
         // send OTP Sms
-
+        //sendSms.sendSms(req.body.phoneNumber, otp);
         // create user token :)
         const token = user.generateAuthToken();
 
@@ -146,7 +156,7 @@ exports.commercialSignUp = async (req,res) =>{
 // confirm user account By OTP
 exports.verifyUserOTP = async (req,res) =>{
     var userOtp = req.body.otp;
-    var type = req.body.type;
+    var type = req.user.type;
     if(!userOtp) return res.status(400).json({
         status:false,
         message:"please enter otp code .."
@@ -231,7 +241,7 @@ exports.resetPassword = async (req,res)=>{
     user.otp = otp;
     user.save();
     // send sms otp
-
+    sendSms.sendSms(user.phoneNumber,otp)
     // finish
     res.status(201).json({
         status: true,
@@ -246,9 +256,8 @@ exports.resetPassword = async (req,res)=>{
   exports.changeUserPassword =  async (req, res) => {
       let newPassword = req.body.newPassword;
       let confirmNewPaassword =req.body.confirmNewPaassword;
-      let userType = req.body.userType;
     let phoneNumber = req.body.phoneNumber;
-
+    let userType = req.body.userType;
       if(!newPassword || !confirmNewPaassword) return res.status(400).json({
         status:false,
         messageAr:"الرجاء إدخال كلمة المرور الجديدة ",
@@ -256,9 +265,9 @@ exports.resetPassword = async (req,res)=>{
     });
 
     if(newPassword == confirmNewPaassword){
-
         if(userType == 'personal'){
             const user = await personal.findOne({'phoneNumber':phoneNumber});
+
             if (user != null) {
               try {
                 const salt = await bcrypt.genSalt(10, (error, hash) => {
@@ -317,6 +326,45 @@ exports.resetPassword = async (req,res)=>{
     }
 
   };
+
+  // resend otp
+
+  exports.resendOtp = async (req,res) =>{
+      let userId = req.user._id;
+      let userType = req.user.type;
+
+
+      if(userType == "personal") {
+          const user = await personal.findById(userId);
+          let otp = createOtp()
+          // set new otp
+          user.otp = otp;
+          user.save();
+          // send sms otp
+          sendSms.sendSms(user.phoneNumber,otp)
+          return res.status(201).json({
+            status: true,
+            messageAr:"تم إرسال رمز التأكيد",
+            messageEn : 'OTP send successfully !',
+            userType: userType
+        })
+      }
+      else {
+        const user = await commercial.findById(userId);
+        let otp = createOtp()
+        // set new otp
+        user.otp = otp;
+        user.save();
+        // send sms otp
+        sendSms.sendSms(user.phoneNumber,otp)
+        return res.status(201).json({
+            status: true,
+            messageAr:"تم إرسال رمز التأكيد",
+            messageEn : 'OTP send successfully !',
+            userType: userType
+        })
+      }
+  }
 
 
 function createOtp() {

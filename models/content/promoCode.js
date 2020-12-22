@@ -48,9 +48,9 @@ function validateData(data) {
     const Schema = {
         nameAr: Joi.string().max(60).required(),
         nameEn: Joi.string().max(60).required(),
-        startDate: Joi.Date().required(),
-        endDate: Joi.Date().required(),
-        discount: Joi.Number().required(),
+        startDate: Joi.date().required(),
+        endDate: Joi.date().required(),
+        discount: Joi.number().required(),
 
     };
 

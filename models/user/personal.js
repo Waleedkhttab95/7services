@@ -7,7 +7,10 @@ const { Schema } = mongoose;
 
 
 const personalSchema = new Schema({
-
+    type:{
+        type:String,
+        enum:['personal','commercial']
+    },
     firstName: {
         type: String,
         required: true,
@@ -28,8 +31,7 @@ const personalSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
-        unique: false
+        required: true
     },
     phoneNumber: {
         type: Number,
@@ -70,7 +72,7 @@ const personalSchema = new Schema({
 
 // genrate token
 personalSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id}, keys.jwtKey);
+    const token = jwt.sign({ _id: this._id,type:this.type}, keys.jwtKey);
 
     return token;
 }
@@ -84,11 +86,14 @@ function validateData(data) {
     const Schema = {
         firstName: Joi.string().min(3).max(15).required(),
         lastName: Joi.string().min(3).max(15).required(),
+        password:Joi.string().required(),
         email: Joi.string().min(5).max(255).required().email(),
-        phoneNumber: Joi.Number().required(),
+        phoneNumber: Joi.number().required(),
         houseType: Joi.string().required(),
-        houseNumber: Joi.Number().min(1).max(6).required(),
-        AcceptTerms: Joi.Boolean().required(),
+        houseNumber: Joi.number().required(),
+        AcceptTerms: Joi.boolean().required(),
+        latitude:Joi.string().required(),
+        longitude:Joi.string().required(),
 
     };
 

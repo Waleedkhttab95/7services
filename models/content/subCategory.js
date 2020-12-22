@@ -40,7 +40,7 @@ function validateData(data) {
     const Schema = {
         nameAr: Joi.string().max(60).required(),
         nameEn: Joi.string().max(60).required(),
-        duration: Joi.Number().required(),
+        duration: Joi.number().required(),
         category: Joi.ObjectId().required()
     };
 

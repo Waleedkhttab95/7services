@@ -6,13 +6,21 @@ const orderSchema = new Schema({
     user:{ type: mongoose.Schema.Types.ObjectId, ref: 'users'},
     provider:{ type: mongoose.Schema.Types.ObjectId, ref: 'Providers' },
     invoice:{ type: mongoose.Schema.Types.ObjectId, ref: 'invoives' },
-    services:{ type: mongoose.Schema.Types.ObjectId, ref: 'Services' },
-    subscription:[{ type: mongoose.Schema.Types.ObjectId, ref: 'subscriptions' }],
-
+    subscription:{ type: mongoose.Schema.Types.ObjectId, ref: 'subscriptions', default:null },
+    orderType: {
+        type:String,
+        enum:['internal','external']
+    },
+    orderDetails:{
+        service:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Services' }],
+        department:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Departments' }],
+        category:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
+        subCategory:[{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategories' }],
+        parts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Parts' }]
+    },
     location: {
         latitude:{type:String, required:true},
         longitude:{type:String, required:true}
-
     },
     orderStatus:{
         type:String,
