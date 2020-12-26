@@ -20,7 +20,6 @@ const commercialSchema = new Schema({
     password: {
         type: String,
         required: true,
-        unique: false
     },
     email: {
         type: String,
