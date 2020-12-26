@@ -7,6 +7,7 @@ const invoiceSchema = new Schema({
     user:{ type: mongoose.Schema.Types.ObjectId, ref: 'users'},
     order:{ type: mongoose.Schema.Types.ObjectId, ref: 'orders'},
     totalAmount:{type:Number,min:0},
+    totalAmountWithTax:{type:Number,min:0},
     isPaid:{type:Boolean},
     updateDate:{type:Date},
     createDate: { type: Date }

@@ -89,11 +89,11 @@ function validateData(data) {
     const Schema = {
         fullNameAr: Joi.string().max(160).required(),
         fullNameEn: Joi.string().max(160).required(),
-        phoneNumber: Joi.Number().required(),
+        phoneNumber: Joi.number().required(),
         email: Joi.string().required().email(),
         type: Joi.String().required(),
         nationality: Joi.String().required(),
-        naId: Joi.Number().required(),
+        naId: Joi.number().required(),
         city: Joi.String().required(),
         Neighborhood: Joi.String().required(),
         streetName: Joi.String().required(),

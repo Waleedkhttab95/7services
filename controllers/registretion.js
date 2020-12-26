@@ -215,6 +215,70 @@ exports.verifyUserOTP = async (req,res) =>{
 
 }
 
+// confirm user account By OTP
+exports.verifyUserOTPWithResetPassword = async (req,res) =>{
+    var userOtp = req.body.otp;
+    var type = req.body.type;
+    let phoneNumber = req.body.phoneNumber;
+    if(!userOtp) return res.status(400).json({
+        status:false,
+        message:"please enter otp code .."
+    }
+        );
+
+    // get user otp frpm DB
+    if(type == "personal"){
+        const user = await personal.findOne({"phoneNumber":phoneNumber}).select("otp");
+
+        //check user otp == otp from request
+        if(user.otp == userOtp){
+            user.isConfirmed = true;
+            user.save();
+            return res.status(201).json({
+                status: true,
+                messageAr: "تم التأكيد " ,
+                messageEn: 'Successful'
+            })
+        }
+        else{
+            return res.status(402).json({
+                status: false,
+                messageAr: "رقم التأكد خاطئ " ,
+                messageEn: 'verification number is invalid'
+            })
+        }
+    }
+    else if(type == "commercial"){
+        const user = await commercial.findOne({"phoneNumber":phoneNumber}).select("otp");
+
+        //check user otp == otp from request
+        if(user.otp == userOtp){
+            user.isConfirmed = true;
+            user.save();
+            return res.status(201).json({
+                status: true,
+                messageAr: "تم التأكيد " ,
+                messageEn: 'Successful'
+            })
+        }
+        else{
+            return res.status(402).json({
+                status: false,
+                messageAr: "رقم التأكد خاطئ " ,
+                messageEn: 'verification number is invalid'
+            })
+        }
+    }
+    else
+    return res.status(400).json({
+        status: false,
+        messageAr: "الرجاء ادخال نوع المستخدم " ,
+        messageEn: 'please enter invalid user type'
+    })
+
+}
+
+
 // reset password
 exports.resetPassword = async (req,res)=>{
     let userPhoneNumber = req.body.phoneNumber;
