@@ -96,7 +96,6 @@ exports.commercialSignUp = async (req,res) =>{
         messageAr:"هذا المستخدم مسجل مسبقا !",
         messageEn : 'this user already exist !'
     });
-
     try {
         user = new commercial({
             companyName: req.body.companyName,
@@ -114,6 +113,7 @@ exports.commercialSignUp = async (req,res) =>{
           });
 
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
+
             if (error) return res.status(400)
             // create otp
          otp = 12345 //createOtp();

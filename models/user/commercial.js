@@ -86,7 +86,7 @@ function validateData(data) {
         AcceptTerms: Joi.boolean().required(),
         latitude:Joi.string().required(),
         longitude:Joi.string().required(),
-
+        password: Joi.string().required()
     };
 
     return Joi.validate(data, Schema);
