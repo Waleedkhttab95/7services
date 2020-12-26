@@ -40,8 +40,7 @@ const commercialSchema = new Schema({
     },
     officeNumber:{
         type:Number,
-        min:1,
-        max:6
+        required:true
     },
     location: [{
         latitude:{type:String, required:true},
@@ -74,7 +73,7 @@ commercialSchema.methods.generateAuthToken = function () {
 // create index
 commercialSchema.index({  phoneNumber:1 });
 
-const commercial = mongoose.model('Commercial', commercialSchema,'users');
+const commercial = mongoose.model('Commercial', commercialSchema);
 
 function validateData(data) {
     const Schema = {

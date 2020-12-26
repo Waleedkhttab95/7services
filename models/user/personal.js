@@ -80,7 +80,7 @@ personalSchema.methods.generateAuthToken = function () {
 // create index
 personalSchema.index({  phoneNumber:1 });
 
-const personal = mongoose.model('Personal', personalSchema,'users');
+const personal = mongoose.model('Personal', personalSchema);
 
 function validateData(data) {
     const Schema = {

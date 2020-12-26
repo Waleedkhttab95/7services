@@ -82,6 +82,7 @@ exports.personalSignUp = async (req,res) =>{
 // user commercial registretion
 exports.commercialSignUp = async (req,res) =>{
     let otp;
+    let user;
     const { error } = validateCommercial(req.body);
     if (error) return res.status(400).json({
         status:false,
@@ -89,13 +90,15 @@ exports.commercialSignUp = async (req,res) =>{
         );
 
 
-    let user = await commercial.findOne({ phoneNumber: req.body.phoneNumber});
+    user = await commercial.findOne({ 'phoneNumber': req.body.phoneNumber});
 
-    if (user) return res.status(400).json({
-        status:false,
-        messageAr:"هذا المستخدم مسجل مسبقا !",
-        messageEn : 'this user already exist !'
-    });
+    if (user) {
+        return res.status(400).json({
+            status:false,
+            messageAr:"هذا المستخدم مسجل مسبقا !",
+            messageEn : 'this user already exist !'
+        });
+    }
     try {
         user = new commercial({
             companyName: req.body.companyName,
@@ -106,7 +109,7 @@ exports.commercialSignUp = async (req,res) =>{
             officeNumber: req.body.officeNumber,
             AcceptTerms: req.body.AcceptTerms,
             type:'commercial'
-        });
+        })
         const salt = await bcrypt.genSalt(10, (error, hash) => {
             if (error) res.status(400)
 
@@ -115,16 +118,18 @@ exports.commercialSignUp = async (req,res) =>{
           const hashPassword = await bcrypt.hash(user.password, salt, null, (error, hash) => {
 
             if (error) return res.status(400)
+            locationObj = {
+                latitude: req.body.latitude,
+                longitude:req.body.longitude
+             }
             // create otp
          otp = 12345 //createOtp();
         today = new Date();
         today.setHours(0, 0, 0, 0);
         user.createDate = today;
         user.password = hash;
-        user.location.latitude= req.body.latitude,
-        user.location.longitude= req.body.longitude,
-        user.location.id= new mongoose.Types.ObjectId(),
-
+        user.location= locationObj;
+        user.location.id= new mongoose.Types.ObjectId();
         user.otp = otp;
         user.save();
 
@@ -137,6 +142,7 @@ exports.commercialSignUp = async (req,res) =>{
         const token = user.generateAuthToken();
 
         res.status(201).json({
+            user:user,
             status: true ,
             messageAr: 'تم تسجيل المستخدم بنجاح ',
             messageEn: 'Successful ',
