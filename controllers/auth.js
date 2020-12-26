@@ -33,11 +33,13 @@ exports.userLogin = async (req, res) => {
 
 
 
+    const token = user.generateAuthToken();
 
         if (user.isConfirmed == false) {
           return res.status(400).json({
             status:false,
             resStatus:405,
+            token:token,
             messageAr:"نرجو تفعيل الحساب",
             messageEn : 'Please confirme your account'
         });
@@ -45,7 +47,6 @@ exports.userLogin = async (req, res) => {
 
         }
 
-      const token = user.generateAuthToken();
       res.status(200).json({
          status:true,
         token: token,
