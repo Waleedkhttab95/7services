@@ -83,7 +83,7 @@ function validateData(data) {
         email: Joi.string().min(5).max(255).required().email(),
         phoneNumber: Joi.number().required(),
         CR: Joi.number().required(),
-        officeNumber: Joi.number().max(6).required(),
+        officeNumber: Joi.number().required(),
         AcceptTerms: Joi.boolean().required(),
         latitude:Joi.string().required(),
         longitude:Joi.string().required(),
