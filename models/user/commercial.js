@@ -41,8 +41,8 @@ const commercialSchema = new Schema({
     },
     officeNumber:{
         type:Number,
-        minlength:1,
-        maxlength:6
+        min:1,
+        max:6
     },
     location: [{
         latitude:{type:String, required:true},
