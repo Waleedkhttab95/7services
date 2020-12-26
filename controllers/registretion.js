@@ -293,13 +293,16 @@ exports.resetPassword = async (req,res)=>{
      user = await personal.findOne({'phoneNumber': userPhoneNumber});
     if(!user) {
     user = await commercial.findOne({'phoneNumber': userPhoneNumber});
+    if(!user) {
+        return res.status(400).json({
+            status:false,
+            messageAr:"المستخدم غير موجود",
+            messageEn : 'user not exist !'
+        });
+    }
         userType = 'commercial'
     }
-    else if(!user)  return res.status(400).json({
-        status:false,
-        messageAr:"المستخدم غير موجود",
-        messageEn : 'user not exist !'
-    });
+    
     let otp = 1234//createOtp()
     // set new otp
     user.otp = otp;
