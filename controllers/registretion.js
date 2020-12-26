@@ -231,7 +231,7 @@ exports.verifyUserOTPWithResetPassword = async (req,res) =>{
         const user = await personal.findOne({"phoneNumber":phoneNumber}).select("otp");
 
         //check user otp == otp from request
-        if(user.otp == userOtp){
+        if(user && user.otp == userOtp){
             user.isConfirmed = true;
             user.save();
             return res.status(201).json({
@@ -252,7 +252,7 @@ exports.verifyUserOTPWithResetPassword = async (req,res) =>{
         const user = await commercial.findOne({"phoneNumber":phoneNumber}).select("otp");
 
         //check user otp == otp from request
-        if(user.otp == userOtp){
+        if(user && user.otp == userOtp){
             user.isConfirmed = true;
             user.save();
             return res.status(201).json({
@@ -302,7 +302,7 @@ exports.resetPassword = async (req,res)=>{
     }
         userType = 'commercial'
     }
-    
+
     let otp = 1234//createOtp()
     // set new otp
     user.otp = otp;
@@ -344,7 +344,7 @@ exports.resetPassword = async (req,res)=>{
                   if (error) res.status(400)
                   user.password = hash;
                   user.save();
-                  return res.status(204).json({
+                  return res.status(201).json({
                     status:true,
                     messageAr:"تم تغيير كلمة المرور ",
                     messageEn : 'Password changed !'
@@ -368,7 +368,7 @@ exports.resetPassword = async (req,res)=>{
                       if (error) res.status(400)
                       user.password = hash;
                       user.save();
-                      return res.status(204).json({
+                      return res.status(201).json({
                         status:true,
                         messageAr:"تم تغيير كلمة المرور ",
                         messageEn : 'Password changed !'
