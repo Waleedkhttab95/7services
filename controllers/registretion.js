@@ -433,6 +433,39 @@ exports.resetPassword = async (req,res)=>{
       }
   }
 
+ // resend otp reset password
+
+ exports.resendOtpWithResetPassword = async (req,res) =>{
+    let userPhone = req.body.phoneNumber;
+
+        const user = await personal.findOne({'phoneNumber':userPhone});
+        if(!user) {
+            const user = await commercial.findOne({'phoneNumber':userPhone});
+
+            if(!user){
+                return res.status(400).json({
+                    status:false,
+                    messageAr:"المستخدم غير موجود",
+                    messageEn : 'user not exist !'
+                });
+            }
+        }
+        let otp = 1234//createOtp()
+        // set new otp
+        user.otp = otp;
+        user.save();
+        // send sms otp
+       // sendSms.sendSms(user.phoneNumber,otp)
+        return res.status(201).json({
+          status: true,
+          messageAr:"تم إرسال رمز التأكيد",
+          messageEn : 'OTP send successfully !',
+          userType: user.type
+      })
+
+
+}
+
 
 function createOtp() {
 var otp = Math.random();

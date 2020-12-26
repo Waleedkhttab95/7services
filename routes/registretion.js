@@ -12,4 +12,5 @@ module.exports = (app) => {
     app.post('/api/setNewPAssword',regController.changeUserPassword)
     app.post('/api/resendOtp',auth,regController.resendOtp)
     app.post('/api/verfiyOtpWithResetPassword',regController.verifyUserOTPWithResetPassword)
+    app.post('/api/resendOtpWithChangePassword',regController.resendOtpWithResetPassword)
 }
