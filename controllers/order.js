@@ -4,6 +4,11 @@ const { subscription } = require('../models/operation/subscription')
 const {setDateZero, setDateZeroWithParam} = require('../controllers/common/commonFunctions')
 const {invoice} = require('../models/operation/invoice')
 const { validatePart, part } = require('../models/content/part')
+const {zone} = require('../models/content/zone')
+const {provider} = require('../models/providers/provider')
+const {providerOfOrder} = require('../models/operation/providerOfOrder')
+const { slot} = require('../models/operation/slots');
+
 
 // to get all Orders for Admin
 exports.getAllOrders = async (req,res) =>{
@@ -55,6 +60,26 @@ exports.createNewRequest = async (req,res) =>{
             // create invoice ..
             createInvoice(result,res);
             //search of providers (Matching between Zones Table and order Location to get nearby zone and find who provider in this zone to send request )
+            allZones = await zone.find();
+            let selectedZone;
+            for(let i=0 ; i<allZones.length ; i++) {
+                var connecticut = await order.find({'location':
+                    {$geoWithin:
+                      {
+                          $geometry:
+                          allZones[i].location
+                       }
+                    }
+                    });
+                    if(connecticut != 0) {
+                        selectedZone = allZones[i]._id;
+                        i = allZones.length;
+                    }
+                    //end for loop
+            }
+            // find providers have same selected zone
+            const providers = await provider.find({'zone':selectedZone,'type':'External'});
+            // now push notification to these providers
 
         })
 
@@ -63,7 +88,17 @@ exports.createNewRequest = async (req,res) =>{
     }
 
     else { // send internal request
+    if(userSubscriptions.numberOfVisits > 0){
 
+
+        // send request to internal
+    } else {
+        return res.status(400).json({
+            status:false ,
+            messageAr:"نأسف لايوجد لديك عدد زيارات كافي",
+            messageEn: "Sorry you dont have visits"
+        })
+    }
 
 
     }
@@ -257,4 +292,63 @@ try{
 } catch(err) {
     res.status(400).send(err)
 }
+}
+
+// check slots
+exports.checkSlots = async (req,res) =>{
+    let date = setDateZeroWithParam(req.body.date);
+
+    let availableSlot = await slot.findOne({'date':date});
+
+    if(availableSlot){
+        res.status(200).json({
+            status:true,
+            timeNotAvailable : availableSlot.hours
+        })
+    } else {
+        res.status(200).json({
+            status:true,
+            timeNotAvailable : 0,
+            message:"All times in this date is available ."
+        })
+    }
+
+}
+
+// add new slot
+exports.addNewSlot = async (req,res) =>{
+    let date = setDateZeroWithParam(req.body.date);
+    let hoursObj = {
+        start: req.body.startHour,
+        end: req.body.endHour,
+        type: req.body.type
+    }
+    try{
+        let availableSlot = await slot.findOne({'date':date});
+
+        if(availableSlot){
+            availableSlot.hours.push(hoursObj);
+            availableSlot.save();
+        }
+        else{
+            let newSlot = new slot({
+                date: date,
+                hours: hours,
+                createDate: setDateZero()
+            }).save();
+        }
+
+        res.status(200).json({
+            status:true,
+            messageAr:"تم إضافة موعد جديد بنجاح",
+            messageEn : "Added new date is successfully"
+        })
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({
+            status:false,
+           err:err
+        })
+    }
+
 }

@@ -3,6 +3,8 @@ const {commercial ,validateCommercial} = require('../models/user/commercial')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const sendSms = require('../controllers/common/sendSms');
+const {wallet} = require('../models/user/wallet');
+const {commercialWallet} = require('../models/user/commercialWallet');
 
 // user personal registretion
 exports.personalSignUp = async (req,res) =>{
@@ -53,6 +55,9 @@ exports.personalSignUp = async (req,res) =>{
                 user.location.id= new mongoose.Types.ObjectId(),
                 user.otp = otp;
                 user.save();
+                new wallet({
+                    user:user._id
+                }).save()
           });
 
 
@@ -132,7 +137,9 @@ exports.commercialSignUp = async (req,res) =>{
         user.location.id= new mongoose.Types.ObjectId();
         user.otp = otp;
         user.save();
-
+        new commercialWallet({
+            user:user._id
+        }).save()
           });
 
 

@@ -9,6 +9,7 @@ const subscriptionSchema = new Schema({
     services:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Services' }],
     location:{ type: mongoose.Schema.Types.ObjectId},
     isActive:{type:Boolean} ,
+    maintenanceVists:{type:Number,default:0},
     totalAmount:{type:Number},
     isPaied:{type:Boolean,default:false},
     updateDate:{type:Date},

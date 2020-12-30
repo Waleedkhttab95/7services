@@ -1,6 +1,7 @@
 const {subscription} = require('../models/operation/subscription');
 const {category} = require('../models/content/category')
 const {setDateZero} = require('../controllers/common/commonFunctions')
+const { package } = require('../models/content/package');
 
 exports.createNewSubscription = async (req,res) =>{
     let userId = req.user._id;
@@ -29,12 +30,18 @@ exports.createNewSubscription = async (req,res) =>{
         totalAmount += service.price;
     }
 
+    //t to get number of visits of a package
+    let packageDetails =  await package.findById(packageId)
+    .select("numberOfVisits");
+
+
     new subscription({
         user: userId,
         package:packageId,
         services: listOfServices,
         location:location,
         isActive:true,
+        numberOfVisits:packageDetails.numberOfVisits,
         createDate:setDateZero(),
         totalAmount: totalAmount
 

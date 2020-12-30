@@ -22,9 +22,8 @@ const zoneSchema = new Schema({
         required: true,
     },
     location: {
-        latitude:{type:String, required:true},
-        longitude:{type:String, required:true}
-
+        type: String,
+         coordinates:[Number ]
     },
     status:{
         type:String,

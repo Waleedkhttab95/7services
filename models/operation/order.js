@@ -19,8 +19,8 @@ const orderSchema = new Schema({
         parts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Parts' }]
     },
     location: {
-        latitude:{type:String, required:true},
-        longitude:{type:String, required:true}
+        type : "Point",
+		coordinates : []
     },
     orderStatus:{
         type:String,

@@ -927,13 +927,16 @@ exports.deletePromoCode = async (req, res) =>{
 exports.postZone = async (req, res) => {
     const { error } = validateZone(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-
+    let locationGeo = {
+        type: req.body.locationType,
+        coordinates: req.body.coordinates
+    }
     try {
         new zone({
             nameAr: req.body.nameAr,
             nameEn: req.body.nameEn,
             Neighborhood: req.body.Neighborhood,
-            location: req.body.location,
+            location:locationGeo,
             // status: req.body.status,
             createDate: Date.now()
         }).save()

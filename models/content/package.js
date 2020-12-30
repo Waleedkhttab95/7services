@@ -40,22 +40,21 @@ const packageSchema = new Schema({
         type:Number,
         required:true
     },
+    numberOfVisits: {type:Number, default:0},
     features: {
         type:String,
         required:true,
         maxlength: 150,
 
     },
-    extraOption: {
-        type:String,
-        required:true,
-        maxlength: 200,
-
-    },
+    extraOption: [{
+        category:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
+        price:{type:Number},
+        numberOfVisits: {type:Number, default:0}
+    }],
 
     image: {
         type: String,
-        required: true,
     },
 
     status: {
